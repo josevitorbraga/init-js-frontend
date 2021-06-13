@@ -23,9 +23,9 @@ export default function OrderHistoryPage(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>DATE</th>
+              <th>DATA</th>
               <th>TOTAL</th>
-              <th>PAID</th>
+              <th>PAGO EM</th>
               <th>DELIVERED</th>
               <th>ACTIONS</th>
             </tr>
