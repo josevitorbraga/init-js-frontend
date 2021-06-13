@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { signOut } from "./actions/userActions";
 import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
 import OrderPage from "./pages/OrderPage";
 import PaymentMethodPage from "./pages/PaymentMethodPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
@@ -46,9 +47,14 @@ function App() {
                   {userInfo.name} <i className="fa fa-caret-down"></i>
                 </Link>
                 <ul className="dropdown-content">
-                  <Link to="#signout" onClick={signoutHandler}>
-                    Sign out
-                  </Link>
+                  <li>
+                    <Link to="/orderhistory">Meus Pedidos</Link>
+                  </li>
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                      Sign out
+                    </Link>
+                  </li>
                 </ul>
               </div>
             ) : (
@@ -65,6 +71,7 @@ function App() {
           <Route path="/payment" component={PaymentMethodPage}></Route>
           <Route path="/placeorder" component={PlaceOrderPage}></Route>
           <Route path="/order/:id" component={OrderPage}></Route>
+          <Route path="/orderhistory" component={OrderHistoryPage}></Route>
           <Route path="/" component={HomePage} exact></Route>
         </main>
         <footer className="row center">®INIT All rights reserved</footer>
