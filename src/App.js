@@ -10,6 +10,7 @@ import OrderHistoryPage from "./pages/OrderHistoryPage";
 import OrderPage from "./pages/OrderPage";
 import PaymentMethodPage from "./pages/PaymentMethodPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
+import ProductEditPage from "./pages/ProductEditPage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -93,6 +94,11 @@ function App() {
         <main>
           <Route path="/cart/:id?" component={CartPage}></Route>
           <Route path="/products/:id" component={ProductPage} exact></Route>
+          <Route
+            path="/product/:id/edit"
+            component={ProductEditPage}
+            exact
+          ></Route>
           <Route path="/register" component={RegisterPage}></Route>
           <Route path="/signin" component={SignInPage}></Route>
           <Route path="/shipping" component={ShippingAdressPage}></Route>
