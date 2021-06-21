@@ -5,7 +5,7 @@ export default function Product(props) {
   const { product } = props;
   return (
     <div className="card" key={product._id}>
-      <Link to="product.html">
+      <Link to={`/products/${product._id}`}>
         <img
           className="medium"
           src={`http://localhost:3333/${product.image}`}

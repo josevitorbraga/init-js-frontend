@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   createProduct,
   deleteProduct,
   listProducts,
-} from "../actions/productActions";
+} from '../actions/productActions';
 
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
 
 export default function ProductListPage(props) {
   const productList = useSelector(state => state.productList);
@@ -45,7 +45,7 @@ export default function ProductListPage(props) {
   }, [dispatch, createdProduct, successCreate, props.history, successDelete]);
 
   const deleteHandler = product => {
-    if (window.confirm("Are you sure to delete?")) {
+    if (window.confirm('Tem certeza que deseja remover o produto?')) {
       dispatch(deleteProduct(product._id));
     }
   };
@@ -56,18 +56,18 @@ export default function ProductListPage(props) {
 
   return (
     <div>
-      <div className="row">
-        <h1>Products</h1>
+      <div className="row" style={{ marginBottom: '2rem' }}>
+        <h1>Produtos</h1>
         <button type="button" className="primary" onClick={createHandler}>
-          Create Product
+          Adicionar novo produto
         </button>
       </div>
-      {loadingDelete && <LoadingBox></LoadingBox>}
+      {loadingDelete && <LoadingBox />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loadingCreate && <LoadingBox />}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -75,10 +75,10 @@ export default function ProductListPage(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
-              <th>PRICE</th>
-              <th>CATEGORY</th>
-              <th>ACTIONS</th>
+              <th>NOME</th>
+              <th>PREÇO</th>
+              <th>CATEGORIA</th>
+              <th>AÇOES</th>
             </tr>
           </thead>
           <tbody>
@@ -96,14 +96,14 @@ export default function ProductListPage(props) {
                       props.history.push(`/product/${product._id}/edit`)
                     }
                   >
-                    Edit
+                    EDITAR
                   </button>
                   <button
                     type="button"
                     className="small"
                     onClick={() => deleteHandler(product)}
                   >
-                    Delete
+                    REMOVER
                   </button>
                 </td>
               </tr>

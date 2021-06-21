@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import Product from "../components/Product";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Product from '../components/Product';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -14,18 +14,24 @@ export default function HomePage() {
     dispatch(listProducts());
   }, [dispatch]);
   return (
-    <div>
-      {loading ? (
-        <LoadingBox></LoadingBox>
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <div className="row center">
-          {products.map(product => (
-            <Product key={product._id} product={product} />
-          ))}
-        </div>
-      )}
-    </div>
+    <>
+      <h1 className="title">Nossa Loja</h1>
+
+      <div>
+        {loading ? (
+          <LoadingBox />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <>
+            <div className="row center">
+              {products.map(product => (
+                <Product key={product._id} product={product} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }

@@ -1,21 +1,22 @@
-import Axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { detailsProducts, updateProduct } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import Axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { detailsProducts, updateProduct } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 export default function ProductEditPage(props) {
   const productId = props.match.params.id;
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
+  const [countInStock, setCountInStock] = useState('');
+  const [description, setDescription] = useState('');
 
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState(false);
@@ -37,7 +38,7 @@ export default function ProductEditPage(props) {
 
   useEffect(() => {
     if (successUpdate) {
-      props.history.push("/productlist");
+      props.history.push('/productlist');
     }
     if (!product || product._id !== productId || successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -63,14 +64,14 @@ export default function ProductEditPage(props) {
         category,
         countInStock,
         description,
-      })
+      }),
     );
   };
 
   const handleUploadImage = async e => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
+    bodyFormData.append('image', file);
     setLoadingUpload(true);
     try {
       const { data } = await Axios.patch(
@@ -78,10 +79,10 @@ export default function ProductEditPage(props) {
         bodyFormData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${userInfo.token}`,
           },
-        }
+        },
       );
       setImage(data);
       setLoadingUpload(false);
@@ -93,91 +94,96 @@ export default function ProductEditPage(props) {
 
   return (
     <div>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Edit Product - {productId}</h1>
-        </div>
-        {loadingUpdate && <LoadingBox />}
-        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Enter name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="price">Price</label>
-              <input
-                type="text"
-                id="price"
-                placeholder="Enter price"
-                value={price}
-                onChange={e => setPrice(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="image">Image</label>
-              <input
-                type="file"
-                id="image"
-                placeholder="Enter image"
-                onChange={handleUploadImage}
-              />
-              {loadingUpload && <LoadingBox />}
-              {errorUpload && (
-                <MessageBox variant="danger">{errorUpload}</MessageBox>
-              )}
-            </div>
-            <div>
-              <label htmlFor="category">Category</label>
-              <input
-                type="text"
-                id="category"
-                placeholder="Enter category"
-                value={category}
-                onChange={e => setCategory(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="countInStock">Count In Stock</label>
-              <input
-                type="text"
-                id="countInStock"
-                placeholder="Enter Count in stock"
-                value={countInStock}
-                onChange={e => setCountInStock(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="description">Description</label>
-              <textarea
-                rows="3"
-                type="text"
-                id="description"
-                placeholder="Enter description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-              />
-            </div>
-            <div>
-              <label></label>
-              <button className="primary" type="submit">
-                Update
-              </button>
-            </div>
-          </>
-        )}
-      </form>
+      <Link to="/productlist">Voltar aos produtos</Link>
+      <div>
+        <form className="form" onSubmit={submitHandler}>
+          <div>
+            <h1>Produto - {productId}</h1>
+          </div>
+          {loadingUpdate && <LoadingBox />}
+          {errorUpdate && (
+            <MessageBox variant="danger">{errorUpdate}</MessageBox>
+          )}
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <>
+              <div>
+                <label htmlFor="name">Nome</label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Enter name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="price">Preço</label>
+                <input
+                  type="text"
+                  id="price"
+                  placeholder="Enter price"
+                  value={price}
+                  onChange={e => setPrice(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="image">Imagem</label>
+                <input
+                  type="file"
+                  id="image"
+                  placeholder="Enter image"
+                  onChange={handleUploadImage}
+                />
+                {loadingUpload && <LoadingBox />}
+                {errorUpload && (
+                  <MessageBox variant="danger">{errorUpload}</MessageBox>
+                )}
+              </div>
+              <div>
+                <label htmlFor="category">Categoria</label>
+                <input
+                  type="text"
+                  id="category"
+                  placeholder="Enter category"
+                  value={category}
+                  onChange={e => setCategory(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="countInStock">Quantidade em estoque</label>
+                <input
+                  type="text"
+                  id="countInStock"
+                  placeholder="Enter Count in stock"
+                  value={countInStock}
+                  onChange={e => setCountInStock(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="description">Descrição</label>
+                <textarea
+                  rows="3"
+                  type="text"
+                  id="description"
+                  placeholder="Enter description"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                />
+              </div>
+              <div>
+                <label />
+                <button className="primary" type="submit">
+                  Update
+                </button>
+              </div>
+            </>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

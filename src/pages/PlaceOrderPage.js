@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { createOrder } from "../actions/orderActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import { createOrder } from '../actions/orderActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
-import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 export default function PlaceOrderPage(props) {
   const cart = useSelector(state => state.cart);
   if (!cart.paymentMethod) {
-    props.history.push("/payment");
+    props.history.push('/payment');
   }
 
   const orderCreate = useSelector(state => state.orderCreate);
@@ -33,7 +33,6 @@ export default function PlaceOrderPage(props) {
 
   useEffect(() => {
     if (success) {
-      console.log(order._id);
       props.history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
@@ -47,26 +46,28 @@ export default function PlaceOrderPage(props) {
           <ul>
             <li>
               <div className="card card-body">
-                <h2>Shipping</h2>
+                <h2>Envio</h2>
                 <p>
-                  <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                  <strong>Address:</strong> {cart.shippingAddress.address},
-                  {cart.shippingAddress.city},{cart.shippingAddress.postalCode},
+                  <strong>Nome:</strong> {cart.shippingAddress.fullName} <br />
+                  <strong>Endereço:</strong> {cart.shippingAddress.address},
+                  <text> </text>
+                  {cart.shippingAddress.city},<text> </text>
+                  {cart.shippingAddress.postalCode},<text> </text>
                   {cart.shippingAddress.country}
                 </p>
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Payment</h2>
+                <h2>Pagamento</h2>
                 <p>
-                  <strong>Method:</strong> {cart.paymentMethod}
+                  <strong>Forma de Pagamento:</strong> {cart.paymentMethod}
                 </p>
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Order Items</h2>
+                <h2>Seu Pedido</h2>
                 <ul>
                   {cart.cartItems.map(item => (
                     <li key={item.product}>
@@ -85,7 +86,7 @@ export default function PlaceOrderPage(props) {
                         </div>
 
                         <div>
-                          {item.qty} x R${item.price} ={" "}
+                          {item.qty} x R$ {item.price} = R${' '}
                           {(item.qty * item.price).toFixed(2)}
                         </div>
                       </div>
@@ -100,17 +101,17 @@ export default function PlaceOrderPage(props) {
           <div className="card card-body">
             <ul>
               <li>
-                <h1>Order Sumary</h1>
+                <h1>Detalhes do pedido</h1>
               </li>
               <li>
                 <div className="row">
-                  <div>Items</div>
+                  <div>Valor</div>
                   <div>R${cart.itemsPrice}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
-                  <div>Shipping</div>
+                  <div>Envio</div>
                   <div>R${cart.shippingPrice}</div>
                 </div>
               </li>
@@ -131,7 +132,7 @@ export default function PlaceOrderPage(props) {
                   className="primary block"
                   disabled={cart.cartItems.length === 0}
                 >
-                  Place Order
+                  Realizar Pedido
                 </button>
               </li>
               {loading && <LoadingBox />}

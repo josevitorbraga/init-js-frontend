@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../actions/cartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function ShippingAdressPage(props) {
   const userSignIn = useSelector(state => state.userSignIn);
@@ -11,7 +11,7 @@ export default function ShippingAdressPage(props) {
   const { shippingAddress } = cart;
 
   if (!userInfo) {
-    props.history.push("/signin");
+    props.history.push('/signin');
   }
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
@@ -24,20 +24,20 @@ export default function ShippingAdressPage(props) {
   const submitHandler = e => {
     e.preventDefault();
     dispatch(
-      saveShippingAddress({ fullName, address, city, postalCode, country })
+      saveShippingAddress({ fullName, address, city, postalCode, country }),
     );
-    props.history.push("/payment");
+    props.history.push('/payment');
     // dispatch save shipping adrs
   };
   return (
     <div>
-      <CheckoutSteps step1 step2></CheckoutSteps>
+      <CheckoutSteps step1 step2 />
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Shipping Address</h1>
+          <h1>Endereço para envio</h1>
         </div>
         <div>
-          <label htmlFor="fullName">Full Name</label>
+          <label htmlFor="fullName">Nome completo do destinatário</label>
           <input
             type="text"
             name="fullName"
@@ -50,7 +50,7 @@ export default function ShippingAdressPage(props) {
           />
         </div>
         <div>
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">Endereço</label>
           <input
             type="text"
             name="address"
@@ -63,7 +63,7 @@ export default function ShippingAdressPage(props) {
           />
         </div>
         <div>
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">Cidade</label>
           <input
             type="text"
             name="city"
@@ -76,7 +76,7 @@ export default function ShippingAdressPage(props) {
           />
         </div>
         <div>
-          <label htmlFor="postalCode">Postal code</label>
+          <label htmlFor="postalCode">CEP</label>
           <input
             type="text"
             name="postalCode"
@@ -89,7 +89,7 @@ export default function ShippingAdressPage(props) {
           />
         </div>
         <div>
-          <label htmlFor="country">Country</label>
+          <label htmlFor="country">Pais</label>
           <input
             type="text"
             name="country"

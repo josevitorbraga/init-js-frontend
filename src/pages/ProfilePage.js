@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { detailsUser, updateUserProfile } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstant";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { detailsUser, updateUserProfile } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstant';
 
 export default function ProfilePage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const userSignIn = useSelector(state => state.userSignIn);
   const { userInfo } = userSignIn;
@@ -38,9 +38,9 @@ export default function ProfilePage() {
 
   const submitHandler = e => {
     e.preventDefault();
-    //TODO DISPATCH
+    // TODO DISPATCH
     if (password !== confirmPassword) {
-      alert("As senhas devem coincindir");
+      alert('As senhas devem coincindir');
     } else {
       dispatch(
         updateUserProfile({
@@ -48,7 +48,7 @@ export default function ProfilePage() {
           name,
           email,
           password,
-        })
+        }),
       );
     }
   };
@@ -57,7 +57,13 @@ export default function ProfilePage() {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div className>
-          <h1>User Profile</h1>
+          <h1>Meu Perfil</h1>
+          <text
+            style={{ color: 'grey', fontSize: '1.3rem', marginBottom: '3rem' }}
+          >
+            Caso queira alterar as informações de login utilize os campos
+            abaixo:
+          </text>
         </div>
         {loading ? (
           <LoadingBox />
@@ -71,43 +77,51 @@ export default function ProfilePage() {
             )}
             {successUpdate && (
               <MessageBox variant="success">
-                Profile updated successfully
+                Perfil alterado com sucesso
               </MessageBox>
             )}
             <div>
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">
+                <strong>Nome</strong>
+              </label>
               <input
                 type="text"
-                placeholder="Enter your name"
+                placeholder="Qual o seu nome?"
                 id="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">
+                <strong>Email</strong>
+              </label>
               <input
                 type="text"
-                placeholder="Enter your email"
+                placeholder="Entre com seu email"
                 id="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">
+                <strong>Senha</strong>
+              </label>
               <input
                 type="text"
-                placeholder="Enter your password"
+                placeholder="Escolha uma senha"
                 id="password"
                 onChange={e => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="confirmpassword">Confirm password</label>
+              <label htmlFor="confirmpassword">
+                <strong>Confirme a senha</strong>
+              </label>
               <input
                 type="text"
-                placeholder="Confirm password"
+                placeholder="Confirme a senha"
                 id="confirmpassword"
                 onChange={e => setConfirmPassword(e.target.value)}
               />
@@ -115,7 +129,7 @@ export default function ProfilePage() {
             <div>
               <label />
               <button className="primary" type="submit">
-                Update
+                Atualizar
               </button>
             </div>
           </>

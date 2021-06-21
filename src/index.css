@@ -7,9 +7,9 @@ body {
   margin: 0;
   height: 100vh;
   font-size: 1.6rem;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 
-  background-image: url("./backgroundimg.jpg");
+  background-image: url('./backgroundimg.jpg');
   background-size: cover;
   background-attachment: fixed;
 
@@ -24,9 +24,9 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
@@ -38,30 +38,33 @@ header {
 }
 main {
   grid-area: main;
-  padding: 3rem;
-  margin-top: 70px;
+  padding: 0 20rem;
+  margin: 7rem 0;
 }
 footer {
   grid-area: footer;
   background-color: #1170ff;
   border-radius: 2px 0;
   color: #fff;
+  margin-top: 1rem;
 }
 /* Comomn */
 h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   padding: 1rem 0;
 }
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   padding: 1rem 0;
 }
 a {
+  color: #202080;
   text-decoration: none;
 }
 a:hover {
   color: yellow;
 }
+
 ul {
   padding: 0;
   margin: 0;
@@ -80,7 +83,7 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 button {
   background-color: #f8f8f8;
@@ -103,6 +106,11 @@ button.small {
   font-size: 1.2rem;
 }
 
+.title {
+  margin-left: 10%;
+  font-size: 3rem;
+}
+
 /*------------------------ Header */
 header a {
   color: #000;
@@ -117,7 +125,7 @@ a.brand {
   background-color: #f02020;
   color: #fff;
   border-radius: 50%;
-  padding: 0.2rem 0.7rem;
+  padding: 0.2rem 0.8rem;
   font-size: 1.4rem;
   margin-left: 0.4rem;
 }
@@ -135,6 +143,48 @@ header.row {
   justify-content: space-between;
   align-items: center;
 }
+.cart-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 700px) {
+  body {
+    font-size: 1.2rem;
+  }
+  main {
+    grid-area: main;
+    padding: 0;
+    margin-top: 22px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    padding: 0;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .cart-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 4rem;
+  }
+  img.small {
+    display: none;
+  }
+  .col-1 {
+    margin: 3rem;
+  }
+}
+
 .row.center {
   justify-content: center;
 }
@@ -160,8 +210,8 @@ img.small {
   width: 100%;
 }
 img.medium {
-  max-width: 29rem;
-  width: 100%;
+  width: 29rem;
+  height: 30rem;
 }
 img.large {
   width: 100%;
@@ -232,10 +282,10 @@ img.large {
   position: absolute;
   display: none;
   right: 0;
-  min-width: 12rem;
+  min-width: 15rem;
   padding: 1rem;
   z-index: 1;
-  background-color: #fff;
+  background-color: #f8f8f8;
   margin: 0;
   margin-top: 0.4rem;
   border-radius: 0.5rem;
@@ -245,6 +295,7 @@ img.large {
 }
 /*------------------Chechout steps--------------------------------*/
 .checkout-steps > div {
+  margin-top: 4rem;
   border-top: 0.3rem #c0c0c0 solid;
   color: #c0c0c0;
   flex: 1;
@@ -258,6 +309,7 @@ img.large {
 .table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #f8f8f8;
 }
 .table tbody tr:nth-of-type() {
   background-color: #f4f4f4;
@@ -270,4 +322,6 @@ img.large {
 }
 .table button {
   margin: 0 0.2rem;
+  background-color: #1170ff;
+  color: #fff;
 }
