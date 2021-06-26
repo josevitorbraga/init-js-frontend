@@ -21,15 +21,17 @@ export default function ProductPage(props) {
   };
 
   return (
-    <div>
+    <div >
+      <Link to="/"><strong><i className="fa fa-arrow-left" /> Voltar ao início</strong></Link>
+
       {loading ? (
         <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div>
-          <Link to="/">Voltar ao início</Link>
-          <div className="row top">
+          <br/>
+          <div style={{justifyContent: 'space-evenly'}} className="row top">
             <div>
               <img
                 className="large"
@@ -37,7 +39,7 @@ export default function ProductPage(props) {
                 alt={product.name}
               />
             </div>
-            <div>
+            <div style={{maxWidth: '520px', minWidth: '213px'}}>
               <div className="col-1">
                 <ul>
                   <li>

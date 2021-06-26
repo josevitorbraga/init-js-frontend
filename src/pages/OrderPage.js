@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
+import MercadoPagoButton from '../components/MercadoPagoButton';
 
 import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions';
 
@@ -42,7 +43,7 @@ export default function OrderPage(props) {
       const { data } = await Axios.get('/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.src = `https://sdk.mercadopago.com/js/v2?client-id=${data}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -195,6 +196,7 @@ export default function OrderPage(props) {
                         amount={order.totalPrice}
                         onSuccess={successPaymentHandler}
                       />
+                      <MercadoPagoButton order={order}/>
                     </>
                   )}
                 </li>
@@ -218,6 +220,7 @@ export default function OrderPage(props) {
           </div>
         </div>
       </div>
+      <div className="cho-container"/>
     </div>
   );
 }

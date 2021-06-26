@@ -13,7 +13,7 @@ export default function OrderHistoryPage(props) {
   }, [dispatch]);
   return (
     <div>
-      <h1>Order History</h1>
+      <h1>Meus Pedidos</h1>
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -23,36 +23,62 @@ export default function OrderHistoryPage(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>DATA</th>
+              <th>PEDIDO EM</th>
               <th>TOTAL</th>
-              <th>PAGO EM</th>
-              <th>ENVIADO EM</th>
+              <th>STATUS DO PEDIDO</th>
+              <th>STATUS DO ENVIO</th>
               <th>AÇOES</th>
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.created_at.substring(0, 10)}</td>
-                <td>R$ {order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.substring(0, 10) : "Pendente"}</td>
-                <td>
-                  {order.isDelivered
-                    ? order.deliveredAt.substring(0, 10)
-                    : "Pendente"}
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => props.history.push(`/order/${order._id}`)}
-                  >
-                    Details
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {orders.map(order => {
+              if(!order.isPaid){
+                return (
+                  <tr className="paymentPending" key={order._id}>
+                    <td>{order._id}</td>
+                    <td>{`${order.created_at.substring(0, 10)} as ${order.created_at.substring(11, 19)}`}</td>
+                    <td>R$ {order.totalPrice.toFixed(2)}</td>
+                    <td><i className="fa fa-exclamation-triangle"/> Verificar detalhes</td>
+                    <td>
+                      {order.isDelivered
+                        ? `${order.deliveredAt.substring(0, 10)} ${order.deliveredAt.substring(11, 19)}`
+                        : "Pendente"}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="small paymentPending"
+                        onClick={() => props.history.push(`/order/${order._id}`)}
+                      >
+                        Detalhes
+                      </button>
+                    </td>
+                  </tr>
+                )
+              } 
+              return (
+                <tr className="paymentOk" key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{`${order.created_at.substring(0, 10)} as ${order.created_at.substring(11, 19)}`}</td>
+                  <td>R$ {order.totalPrice.toFixed(2)}</td>
+                  <td>Pedido recebido</td>
+                  <td>
+                    {order.isDelivered
+                      ? `${order.deliveredAt.substring(0, 10)} ${order.deliveredAt.substring(11, 19)}`
+                      : "Pedido em separação"}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="small paymentOk"
+                      onClick={() => props.history.push(`/order/${order._id}`)}
+                    >
+                      Detalhes
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       )}

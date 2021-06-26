@@ -35,14 +35,14 @@ function App() {
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
-          <div>
+          <div style={{marginLeft: '2rem'}}>
             <Link className="brand" to="/">
               SITE NAME
             </Link>
           </div>
-          <div>
+          <div style={{marginRight: '2rem'}}>
             <Link to="/cart">
-              CARRINHO
+            <i className="fa fa-shopping-cart" /> CARRINHO
               {cartItems.length > 0 && (
                 <span className="badge">
                   <strong>{cartItems.length}</strong>
@@ -50,20 +50,43 @@ function App() {
               )}
             </Link>
 
+            {userInfo ? (
+              <div className="dropdown">
+                <Link to="/profile">
+                <i className="fa fa-user" /> {userInfo.name} <i className="fa fa-caret-down" />
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/profile"><i className="fa fa-edit" />  Alterar credenciais</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderhistory"><i className="fa fa-shopping-bag" />  Meus Pedidos</Link>
+                  </li>
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                    <i className="fa fa-sign-out" />  Sair
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <Link to="/signin">SIGN IN</Link>
+            )}
+
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
                 <Link to="#admin">
-                  Admin <i className="fa fa-caret-down" />
+                <i className="fa fa-cogs" /> Admin <i className="fa fa-caret-down" />
                 </Link>
-                <ul className="dropdown-content">
+                <ul style={{textAlign: "right", minWidth:'13rem'}} className="dropdown-content">
                   <li>
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
                   <li>
-                    <Link to="/productList">Products</Link>
+                    <Link to="/productList"><i className="fa fa-tags" />  Produtos</Link>
                   </li>
                   <li>
-                    <Link to="/orderList">Orders</Link>
+                    <Link to="/orderList"><i className="fa fa-truck" />  Pedidos</Link>
                   </li>
                   <li>
                     <Link to="/userList">Users</Link>
@@ -72,28 +95,7 @@ function App() {
               </div>
             )}
 
-            {userInfo ? (
-              <div className="dropdown">
-                <Link to="#placeholder">
-                  {userInfo.name} <i className="fa fa-caret-down" />
-                </Link>
-                <ul className="dropdown-content">
-                  <li>
-                    <Link to="/profile">User Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="/orderhistory">Meus Pedidos</Link>
-                  </li>
-                  <li>
-                    <Link to="#signout" onClick={signoutHandler}>
-                      Sign out
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <Link to="/signin">SIGN IN</Link>
-            )}
+            
           </div>
         </header>
         <main>
