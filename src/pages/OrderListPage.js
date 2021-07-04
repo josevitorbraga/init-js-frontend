@@ -78,7 +78,7 @@ export default function OrderListPage(props) {
                       </button>
                       <button
                         type="button"
-                        className="small"
+                        className="small paymentPending"
                         onClick={() => deleteHandler(order)}
                       >
                         Deletar
@@ -111,7 +111,7 @@ export default function OrderListPage(props) {
                       </button>
                       <button
                         type="button"
-                        className="small"
+                        className="small paymentPending"
                         onClick={() => deleteHandler(order)}
                       >
                         Deletar
@@ -146,7 +146,7 @@ export default function OrderListPage(props) {
                     </button>
                     <button
                       type="button"
-                      className="small"
+                      className="small paymentPending"
                       onClick={() => deleteHandler(order)}
                     >
                       Deletar

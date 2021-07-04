@@ -21,6 +21,9 @@ export default function CartPage(props) {
   const removeFromCartHandler = id => {
     dispatch(removeFromCart(id));
   };
+  const backToShop = () => {
+    props.history.push("/")
+  }
   const checkoutHandler = () => {
     props.history.push('/signin?redirect=shipping');
   };
@@ -32,7 +35,7 @@ export default function CartPage(props) {
         <div className="col-2">
           {cartItems.length === 0 ? (
             <MessageBox>
-              Parece que você ainda não adicionou produtos aqui{' '}
+              Parece que você ainda não adicionou produtos aqui,{' '}
               <Link to="/">
                 <strong>vamos comprar!</strong>
               </Link>
@@ -96,13 +99,14 @@ export default function CartPage(props) {
                 </h2>
               </li>
               <li>
+                <button type='button' className="secondary block" onClick={backToShop}><i className="fa fa-arrow-left"/>&nbsp;&nbsp;Continuar comprando</button>
                 <button
                   className="primary block"
                   type="button"
                   onClick={checkoutHandler}
                   disabled={cartItems.length === 0}
                 >
-                  Finalizar pedido
+                  Finalizar pedido&nbsp;&nbsp;<i className="fa fa-shopping-cart"/>
                 </button>
               </li>
             </ul>

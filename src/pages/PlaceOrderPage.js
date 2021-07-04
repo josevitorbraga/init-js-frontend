@@ -49,10 +49,12 @@ export default function PlaceOrderPage(props) {
                 <h2>Envio</h2>
                 <p>
                   <strong>Nome:</strong> {cart.shippingAddress.fullName} <br />
-                  <strong>Endereço:</strong> {cart.shippingAddress.address},
-                  <text> </text>
-                  {cart.shippingAddress.city},<text> </text>
-                  {cart.shippingAddress.postalCode},<text> </text>
+                  <strong>Telefone:</strong> {cart.shippingAddress.contact} <br />
+                  <strong>Endereço:</strong>&nbsp;  
+                  {cart.shippingAddress.address},&nbsp;&nbsp;
+                  {cart.shippingAddress.number},&nbsp;&nbsp;
+                  {cart.shippingAddress.city},&nbsp;&nbsp;
+                  {cart.shippingAddress.postalCode},&nbsp;&nbsp;
                   {cart.shippingAddress.country}
                 </p>
               </div>

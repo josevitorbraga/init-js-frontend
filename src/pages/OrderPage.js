@@ -2,10 +2,9 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2';
 import MercadoPagoButton from '../components/MercadoPagoButton';
 
-import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions';
+import { deliverOrder, detailsOrder  } from '../actions/orderActions';
 
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -23,12 +22,7 @@ export default function OrderPage(props) {
   const userSignIn = useSelector(state => state.userSignIn);
   const { userInfo } = userSignIn;
 
-  const orderPay = useSelector(state => state.orderPay);
-  const {
-    loading: loadingPay,
-    error: errorPay,
-    success: successPay,
-  } = orderPay;
+
 
   const orderDeliver = useSelector(state => state.orderDeliver);
   const {
@@ -52,7 +46,6 @@ export default function OrderPage(props) {
     };
     if (
       !order ||
-      successPay ||
       successDeliver ||
       (order && order._id !== orderId)
     ) {
@@ -68,11 +61,8 @@ export default function OrderPage(props) {
         }
       }
     }
-  }, [dispatch, orderId, sdkReady, order, successPay, successDeliver]);
+  }, [dispatch, orderId, sdkReady, order,  successDeliver]);
 
-  const successPaymentHandler = paymentResult => {
-    dispatch(payOrder(order, paymentResult));
-  };
 
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
@@ -93,10 +83,11 @@ export default function OrderPage(props) {
                 <h2>Envio</h2>
                 <p>
                   <strong>Nome:</strong> {order.shippingAddress.fullName} <br />
+                  <strong>Contato:</strong> {order.shippingAddress.contact} <br />
                   <strong>Endereço:</strong> {order.shippingAddress.address},
-                  {order.shippingAddress.city},
-                  {order.shippingAddress.postalCode},
-                  {order.shippingAddress.country}
+                  &nbsp;{order.shippingAddress.city},
+                  &nbsp;{order.shippingAddress.postalCode},
+                  &nbsp;{order.shippingAddress.country}
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
@@ -182,24 +173,13 @@ export default function OrderPage(props) {
                   </div>
                 </div>
               </li>
-              {!order.isPaid && (
-                <li>
-                  {!sdkReady ? (
-                    <LoadingBox />
-                  ) : (
-                    <>
-                      {errorPay && (
-                        <MessageBox variant="danger">{errorPay}</MessageBox>
-                      )}
-                      {loadingPay && <LoadingBox />}
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      />
-                      <MercadoPagoButton order={order}/>
-                    </>
-                  )}
-                </li>
+              {order.user === userInfo._id && !order.isPaid && (
+                                <li>
+                  
+                                <MercadoPagoButton order={order}/>
+              
+                              </li>
+              
               )}
               {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                 <li>

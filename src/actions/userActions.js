@@ -27,13 +27,13 @@ export const signIn = (email, password) => async dispatch => {
       payload: data,
     });
     localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
-        err.response && err.response.data.mesage
-          ? err.response.data.message
-          : err.message,
+        error.response && error.response.data.mesage
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

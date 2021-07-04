@@ -17,7 +17,7 @@ export default function HomePage() {
     <>
       <h1 className="title">Nossa Loja</h1>
 
-      <div>
+      <div style={{padding: '0 5rem'}}>
         {loading ? (
           <LoadingBox />
         ) : error ? (

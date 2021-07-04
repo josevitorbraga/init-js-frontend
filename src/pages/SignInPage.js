@@ -33,26 +33,26 @@ export default function SignInPage(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Sign In</h1>
+          <h1>Fazer login</h1>
         </div>
         {loading && <LoadingBox />}
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
+        {error && <MessageBox variant="danger">Email ou senha inválidos!</MessageBox>}
         <div>
-          <label htmlFor="email">Email adress</label>
+          <label htmlFor="email">Endereço de e-mail</label>
           <input
             type="email"
             id="email"
-            placeholder="enter email"
+            placeholder="exemplo@seuemail.com"
             required
             onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="email">Password</label>
+          <label htmlFor="email">Senha</label>
           <input
             type="password"
             id="password"
-            placeholder="enter password"
+            placeholder="Insira sua senha"
             required
             onChange={e => setPassword(e.target.value)}
           />
@@ -60,13 +60,13 @@ export default function SignInPage(props) {
         <div>
           <label />
           <button className="primary" type="submit">
-            Sign In
+            Entrar
           </button>
         </div>
         <div>
           <label />
           <div>
-            New customer? {'  '}
+            Novo na loja? {'  '}
             <Link to={`/register?redirect=${redirect}`}>Criar conta</Link>
           </div>
         </div>

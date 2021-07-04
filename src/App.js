@@ -4,10 +4,12 @@ import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { signOut } from './actions/userActions';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
+import SearchBox from './components/SearchBox';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import OrderListPage from './pages/OrderListPage';
+import SearchPage from './pages/SearchPage'
 import OrderPage from './pages/OrderPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
@@ -40,12 +42,19 @@ function App() {
               SITE NAME
             </Link>
           </div>
+          <div>
+            <Route
+              render={({ history }) => (
+                <SearchBox history={history}/>
+              )}
+            />
+          </div>
           <div style={{marginRight: '2rem'}}>
             <Link to="/cart">
-            <i className="fa fa-shopping-cart" /> CARRINHO
+            <i className="fa fa-shopping-cart" /> &nbsp;CARRINHO
               {cartItems.length > 0 && (
                 <span className="badge">
-                  <strong>{cartItems.length}</strong>
+                  <strong>{cartItems.length}&nbsp;</strong>
                 </span>
               )}
             </Link>
@@ -53,7 +62,7 @@ function App() {
             {userInfo ? (
               <div className="dropdown">
                 <Link to="/profile">
-                <i className="fa fa-user" /> {userInfo.name} <i className="fa fa-caret-down" />
+                <i className="fa fa-user" /> &nbsp;{userInfo.name.toUpperCase()} <i className="fa fa-caret-down" />
                 </Link>
                 <ul className="dropdown-content">
                   <li>
@@ -63,34 +72,32 @@ function App() {
                     <Link to="/orderhistory"><i className="fa fa-shopping-bag" />  Meus Pedidos</Link>
                   </li>
                   <li>
-                    <Link to="#signout" onClick={signoutHandler}>
+                    <Link to="/#logout" onClick={signoutHandler}>
                     <i className="fa fa-sign-out" />  Sair
                     </Link>
                   </li>
                 </ul>
               </div>
             ) : (
-              <Link to="/signin">SIGN IN</Link>
+              <Link to="/signin">LOGIN</Link>
             )}
 
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
                 <Link to="#admin">
-                <i className="fa fa-cogs" /> Admin <i className="fa fa-caret-down" />
+                <i className="fa fa-cogs" />  &nbsp;ADMIN <i className="fa fa-caret-down" />
                 </Link>
                 <ul style={{textAlign: "right", minWidth:'13rem'}} className="dropdown-content">
                   <li>
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
                   <li>
-                    <Link to="/productList"><i className="fa fa-tags" />  Produtos</Link>
+                    <Link to="/productList"><i className="fa fa-tags" />   Produtos</Link>
                   </li>
                   <li>
-                    <Link to="/orderList"><i className="fa fa-truck" />  Pedidos</Link>
+                    <Link to="/orderList"><i className="fa fa-truck" />   Pedidos</Link>
                   </li>
-                  <li>
-                    <Link to="/userList">Users</Link>
-                  </li>
+
                 </ul>
               </div>
             )}
@@ -109,6 +116,11 @@ function App() {
           <Route path="/placeorder" component={PlaceOrderPage} />
           <Route path="/order/:id" component={OrderPage} />
           <Route path="/orderhistory" component={OrderHistoryPage} />
+          <Route
+            path="/search/name/:name?"
+            component={SearchPage}
+            exact
+           />
           <PrivateRoute path="/profile" component={ProfilePage} />
           <AdminRoute path="/productlist" component={ProductListPage} />
           <AdminRoute path="/orderlist" component={OrderListPage} />

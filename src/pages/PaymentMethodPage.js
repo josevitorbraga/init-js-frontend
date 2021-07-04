@@ -4,6 +4,8 @@ import { savePaymentMethod } from '../actions/cartActions';
 
 import CheckoutSteps from '../components/CheckoutSteps';
 
+import mpLogo from '../assets/mercado-pago-logo.svg'
+
 export default function PaymentMethodPage(props) {
   const cart = useSelector(state => state.cart);
   const { shippingAddress } = cart;
@@ -31,34 +33,17 @@ export default function PaymentMethodPage(props) {
           <div>
             <input
               type="radio"
-              id="paypal"
-              value="paypal"
+              id="mercadopago"
+              value="mercadopago"
               name="paymentMethod"
               required
               checked
               onChange={e => setPaymentMethod(e.target.value)}
             />
-            <label htmlFor="paypal">PayPal</label>
+            <label htmlFor="mercadopago">Mercado Pago <img className='small' src={mpLogo} alt="mercadopago" /></label>
           </div>
         </div>
-        <div>
-          <div>
-            <input
-              type="radio"
-              id="stripe"
-              value="stripe"
-              name="paymentMethod"
-              required
-              onChange={e => setPaymentMethod(e.target.value)}
-            />
-            <label htmlFor="stripe">Stripe</label>
-          </div>
-          <div>
-            <button className="primary" type="submit">
-              Continuar
-            </button>
-          </div>
-        </div>
+        <button style={{marginTop: '2rem'}} className="primary" type="submit">Continuar</button>
       </form>
     </div>
   );
